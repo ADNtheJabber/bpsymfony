@@ -1,0 +1,122 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.logo img {
+    width: 40px;
+    height: 40px;
+    margin-top: 10px;
+}
+
+.logo h2 {
+    margin-top: 20px;
+    margin-left: 10px;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0;
+}
+
+nav {
+    background: rgba(0, 195, 199, 0.51);
+    height: 40px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+nav ul {
+    margin-top: 0;
+    text-align: center;  
+}
+nav ul li {
+    display: inline-block;
+    line-height: 10px;
+    margin-right: 30px;
+    margin-top: 15px;
+}
+nav ul li a, .dropbtn {
+    color:white;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 3px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    margin: 0;
+}
+nav ul li a {
+    font-weight: bold;
+}
+nav ul li a:hover, .dropdown:hover dropbtn {
+    color: rgba(0, 195, 199, 0.51);
+    background: white;
+    transition: .5s;
+}
+
+li .dropdown {
+    display: inline-block;
+}
+  
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 130px;
+    box-shadow: 0px 8px 14px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+  
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+  
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+  
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+.btn {
+    background-color:  rgba(0, 195, 199, 0.51);
+    border: 1px;
+    color:black;
+    padding: 12px 16px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* Darker background on mouse-over */
+  .btn:hover {
+    background-color:green;
+  }
+.content {
+    width: auto;
+    height: auto;
+}
+
+.centered-form{
+    margin: auto;
+}
+
+.centered-form .panel{
+	background: rgba(255, 255, 255, 0.8);
+	box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+}

@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Compte;
-use PhpParser\Node\Stmt\Label;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -29,8 +28,8 @@ class CompteType extends AbstractType
             ->add('solde', NumberType::class)
             ->add('idClientEntreprise', IntegerType::class)
             ->add('idClientPhysique', IntegerType::class)
-            ->add('submit', SubmitType::class,['attr'=>['Label' =>'Valider']])
-            ->add('reset', ResetType::class,['attr'=>['Label' =>'Annuler']])
+            ->add('submit', SubmitType::class,['attr'=>['label' =>'Valider']])
+            ->add('reset', ResetType::class,['attr'=>['label' =>'Annuler']])
 
         ;
     }
