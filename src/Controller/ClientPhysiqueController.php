@@ -14,25 +14,8 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ClientPhysiqueController extends AbstractController
 {
-    
     /**
-     * @Route("/clientPhysique", name="clientPhysique")
-     */
-    public function index()
-    {
-        return $this->render('client_physique/add.html.twig');
-    }/**
-     * @Route("/ClientPhysique/list", name="CPlist", methods={"GET"})
-     */
-    public function listAll(ClientPhysiqueRepository $clientPhysiqueRepository): Response
-    {
-        return $this->render('client_physique/list.html.twig', [
-            'clients' => $clientPhysiqueRepository->findAll(),
-        ]);
-    }
-
-    /**
-     * @Route("/clientPhysique/ajout", name="CPadd", methods={"GET","POST"})
+     * @Route("/clientPhysique", name="clientPhysique", methods={"GET","POST"})
      */
     public function add(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -42,20 +25,42 @@ class ClientPhysiqueController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $entityManager->persist($entityManager);
+            $entityManager->persist($clientPhysique);
             $entityManager->flush();
             return $this->redirectToRoute('clientPhysique');
         }
 
-        return $this->render('client_physique/error.html.twig', [
+        return $this->render('client_physique/add.html.twig', [
             'client' => $clientPhysique,
             'form' => $form->createView(),
+        ]);
+    }    
+    
+    
+    /**
+     * @Route("/ClientPhysique/list", name="CPlist", methods={"GET"})
+     */
+    public function listAll(ClientPhysiqueRepository $clientPhysiqueRepository): Response
+    {
+        return $this->render('client_physique/list.html.twig', [
+            'clients' => $clientPhysiqueRepository->findAll(),
         ]);
     }
 
     
+
     /**
-     * @Route("/{id}", name="clientP_delete", methods={"DELETE"})
+     * @Route("/clientPhysique/show/{id}", name="clientP_show", methods={"GET"})
+     */
+    public function show(ClientPhysique $clientPhysique): Response
+    {
+        return $this->render('client_physique/show.html.twig', [
+            'client' => $clientPhysique,
+        ]);
+    }
+
+    /**
+     * @Route("/clientPhysique/del/{id}", name="clientP_delete", methods={"DELETE"})
      */
     public function delete(Request $request, ClientPhysique $clientPhysique): Response
     {

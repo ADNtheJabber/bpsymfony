@@ -2,77 +2,87 @@
 
 namespace App\Entity;
 
-use App\Repository\ClientPhysiqueRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ClientPhysiqueRepository::class)
+ * ClientPhysique
+ *
+ * @ORM\Table(name="client_physique")
+ * @ORM\Entity
  */
 class ClientPhysique
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="prenom", type="string", length=255, nullable=false)
      */
     private $prenom;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="tel", type="integer", nullable=false)
      */
     private $tel;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="adresse", type="string", length=255, nullable=false)
      */
     private $adresse;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
     private $email;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="identifiant", type="integer", nullable=false)
      */
     private $identifiant;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
+     * @var string|null
+     *
+     * @ORM\Column(name="salaire", type="decimal", precision=20, scale=2, nullable=true, options={"default"="NULL"})
      */
-    private $salaire;
+    private $salaire = 'NULL';
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
+     *
+     * @ORM\Column(name="profession", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $profession;
+    private $profession = 'NULL';
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @var string|null
+     *
+     * @ORM\Column(name="infos_employeur", type="string", length=255, nullable=true, options={"default"="NULL"})
      */
-    private $infosEmployeur;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Compte::class, mappedBy="idClientPhysique")
-     */
-    private $idCompte;
-
-    public function __construct()
-    {
-        $this->idCompte = new ArrayCollection();
-    }
+    private $infosEmployeur = 'NULL';
 
     public function getId(): ?int
     {
@@ -187,34 +197,5 @@ class ClientPhysique
         return $this;
     }
 
-    /**
-     * @return Collection|Compte[]
-     */
-    public function getIdCompte(): Collection
-    {
-        return $this->idCompte;
-    }
 
-    public function addIdCompte(Compte $idCompte): self
-    {
-        if (!$this->idCompte->contains($idCompte)) {
-            $this->idCompte[] = $idCompte;
-            $idCompte->setIdClientPhysique($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIdCompte(Compte $idCompte): self
-    {
-        if ($this->idCompte->contains($idCompte)) {
-            $this->idCompte->removeElement($idCompte);
-            // set the owning side to null (unless already changed)
-            if ($idCompte->getIdClientPhysique() === $this) {
-                $idCompte->setIdClientPhysique(null);
-            }
-        }
-
-        return $this;
-    }
 }

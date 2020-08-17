@@ -13,24 +13,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CompteController extends AbstractController
 {
-    /**
-         * @Route("/compte", name="compte")
-         */
-        public function index()
-        {
-            return $this->render('compte/add.html.twig');
-        }/**
-        * @Route("/Compte/list", name="Clist", methods={"GET"})
-        */
-        public function listAll(CompteRepository $compteRepository): Response
-        {
-            return $this->render('compte/list.html.twig', [
-                'clients' => $compteRepository->findAll(),
-            ]);
-        }
-
+                
         /**
-         * @Route("/compte/ajout", name="Cadd", methods={"GET","POST"})
+         * @Route("/compte", name="compte", methods={"GET","POST"})
          */
         public function add(Request $request, EntityManagerInterface $entityManager): Response
         {
@@ -40,20 +25,31 @@ class CompteController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 
-                $entityManager->persist($entityManager);
+                $entityManager->persist($compte);
                 $entityManager->flush();
                 return $this->redirectToRoute('compte');
             }
 
-            return $this->render('compte/error.html.twig', [
-                'client' => $compte,
+            return $this->render('compte/add.html.twig', [
+                'compte' => $compte,
                 'form' => $form->createView(),
+            ]);;
+        }
+    
+        /**
+        * @Route("/Compte/list", name="Clist", methods={"GET"})
+        */
+        public function listAll(CompteRepository $compteRepository): Response
+        {
+            return $this->render('compte/list.html.twig', [
+                'comptes' => $compteRepository->findAll(),
             ]);
         }
 
         
+        
         /**
-         * @Route("/{id}", name="clientP_delete", methods={"DELETE"})
+         * @Route("/compte/del/{id}", name="compte_delete", methods={"DELETE"})
          */
         public function delete(Request $request, Compte $compte): Response
         {
@@ -63,6 +59,6 @@ class CompteController extends AbstractController
                 $entityManager->flush();
             }
 
-            return $this->redirectToRoute('compte');
+            return $this->redirectToRoute('Clist');
         }
 }

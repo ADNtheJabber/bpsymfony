@@ -1,11 +1,49 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des Comptes{% endblock %}
+{% block title %}Liste des Clients Entreprises{% endblock %}
 
 {% block body %}
 
+
 <div class="example-wrapper">
-    <h1>Listes</h1>
-    
+    <h1>Listes des Clients Entreprises</h1>
 </div>
+
+<a href="{{ path('clientMoral') }}" class="btn btn-primary">Nouveau Client</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Raison Sociale</th>
+                <th>Telephone</th>
+                <th>Email</th>
+                <th>Adresse</th>
+
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for client in clients %}
+            <tr>
+                <td>{{ client.id }}</td>
+                <td>{{ client.nom }}</td>
+                <td>{{ client.raisonSociale }}</td>
+                <td>{{ client.telephone }}</td>
+                <td>{{ client.email }}</td>
+                <td>{{ client.Adresse }}</td>
+                <td>
+                    <a href="{{ path('clientM_show', {'id': client.id}) }}" class="btn btn-info">Voir plus !</a>
+                    <a href="{{ path('clientM_delete', {'id': client.id}) }}" class="btn btn-danger">Supprimer</a>
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucune donnée !</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}

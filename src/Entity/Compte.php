@@ -2,70 +2,100 @@
 
 namespace App\Entity;
 
-use App\Repository\CompteRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CompteRepository::class)
+ * Compte
+ *
+ * @ORM\Table(name="compte", indexes={@ORM\Index(name="IDX_CFF65260DFE8647A", columns={"id_client_entreprise_id"}), @ORM\Index(name="IDX_CFF65260D1B9700C", columns={"id_client_physique_id"})})
+ * @ORM\Entity
  */
 class Compte
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="numero_compte", type="string", length=255, nullable=false)
      */
     private $numeroCompte;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="type_compte", type="string", length=255, nullable=false)
      */
     private $typeCompte;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2)
+     * @var string
+     *
+     * @ORM\Column(name="frais_ouverture", type="decimal", precision=20, scale=2, nullable=false)
      */
     private $fraisOuverture;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2)
+     * @var string
+     *
+     * @ORM\Column(name="remuneration", type="decimal", precision=20, scale=2, nullable=false)
      */
     private $remuneration;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2)
+     * @var string
+     *
+     * @ORM\Column(name="agios", type="decimal", precision=20, scale=2, nullable=false)
      */
     private $agios;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="date_ouverture", type="string", length=255, nullable=false)
      */
     private $dateOuverture;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="date_deblocage", type="string", length=255, nullable=false)
      */
     private $dateDeblocage;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2)
+     * @var string
+     *
+     * @ORM\Column(name="solde", type="decimal", precision=20, scale=2, nullable=false)
      */
     private $solde;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ClientMoral::class, inversedBy="idCompte")
-     */
-    private $idClientEntreprise;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=ClientPhysique::class, inversedBy="idCompte")
+     * @var \ClientPhysique
+     *
+     * @ORM\ManyToOne(targetEntity="ClientPhysique")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_client_physique_id", referencedColumnName="id")
+     * })
      */
     private $idClientPhysique;
+
+    /**
+     * @var \ClientMoral
+     *
+     * @ORM\ManyToOne(targetEntity="ClientMoral")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id_client_entreprise_id", referencedColumnName="id")
+     * })
+     */
+    private $idClientEntreprise;
 
     public function getId(): ?int
     {
@@ -168,7 +198,18 @@ class Compte
         return $this;
     }
 
-    
+    public function getIdClientPhysique(): ?ClientPhysique
+    {
+        return $this->idClientPhysique;
+    }
+
+    public function setIdClientPhysique(?ClientPhysique $idClientPhysique): self
+    {
+        $this->idClientPhysique = $idClientPhysique;
+
+        return $this;
+    }
+
     public function getIdClientEntreprise(): ?ClientMoral
     {
         return $this->idClientEntreprise;
@@ -181,15 +222,5 @@ class Compte
         return $this;
     }
 
-    public function getIdClientPhysique(): ?ClientPhysique
-    {
-        return $this->idClientPhysique;
-    }
 
-    public function setIdClientPhysique(?ClientPhysique $idClientPhysique): self
-    {
-        $this->idClientPhysique = $idClientPhysique;
-
-        return $this;
-    }
 }

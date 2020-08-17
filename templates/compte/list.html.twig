@@ -6,6 +6,37 @@
 
 
 <div class="example-wrapper">
-    <h1>Listes</h1>
+    <h1>Listes des Comptes</h1>
 </div>
+
+<a href="{{ path('compte') }}" class="btn btn-primary">Nouveau Compte</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Numero</th>
+                <th>Type</th>
+                <th>Solde</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for compte in comptes %}
+            <tr>
+                <td>{{ compte.id }}</td>
+                <td>{{ compte.numeroCompte }}</td>
+                <td>{{ compte.typeCompte }}</td>
+                <td>{{ compte.solde }}</td>
+                <td>
+                    <a href="{{ path('compte_delete', {'id': compte.id}) }}" class="btn btn-danger">Supprimer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Aucune donnée !</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
 {% endblock %}

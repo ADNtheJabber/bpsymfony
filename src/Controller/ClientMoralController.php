@@ -9,28 +9,15 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
 
 
 class ClientMoralController extends AbstractController
 {
-     /**
-     * @Route("/clientMoral", name="clientMoral")
-     */
-    public function index()
-    {
-        return $this->render('client_moral/add.html.twig');
-    }/**
-     * @Route("/ClientPhysique/list", name="CPlist", methods={"GET"})
-     */
-    public function listAll(ClientMoralRepository $clientMoralRepository): Response
-    {
-        return $this->render('client_moral/list.html.twig', [
-            'clients' => $clientMoralRepository->findAll(),
-        ]);
-    }
-
+    
     /**
-     * @Route("/clientMoral/ajout", name="CMadd", methods={"GET","POST"})
+     * @Route("/clientMoral", name="clientMoral", methods={"GET","POST"})
      */
     public function add(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -40,20 +27,42 @@ class ClientMoralController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $entityManager->persist($entityManager);
+            $entityManager->persist($clientMoral);
             $entityManager->flush();
             return $this->redirectToRoute('clientMoral');
         }
 
-        return $this->render('client_moral/error.html.twig', [
+        return $this->render('client_moral/add.html.twig', [
             'client' => $clientMoral,
             'form' => $form->createView(),
         ]);
     }
+    
+        
+    /**
+     * @Route("/ClientMoral/list", name="CMlist", methods={"GET"})
+     */
+    public function listAll(ClientMoralRepository $clientMoralRepository): Response
+    {
+        return $this->render('client_moral/list.html.twig', [
+            'clients' => $clientMoralRepository->findAll(),
+        ]);
+    }
 
+
+    /**
+     * @Route("/clientMoral/show/{id}", name="clientM_show", methods={"GET"})
+     */
+    public function show(ClientMoral $clientMoral): Response
+    {
+        return $this->render('client_moral/show.html.twig', [
+            'client' => $clientMoral,
+        ]);
+    }
+    
    
     /**
-     * @Route("/{id}", name="clientP_delete", methods={"DELETE"})
+     * @Route("/clientMoral/del/{id}", name="clientM_delete", methods={"DELETE"})
      */
     public function delete(Request $request, ClientMoral $clientMoral): Response
     {

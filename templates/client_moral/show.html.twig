@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Infos Clients{% endblock %}
+
+{% block body %}
+    <h1>Details du Client : {{ client.nom }} - {{ client.raisonSociale }}</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ client.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ client.nom }}</td>
+            </tr>
+            <tr>
+                <th>Raison Sociale</th>
+                <td>{{ client.raisonSociale }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ client.email }}</td>
+            </tr>
+            <tr>
+                <th>Telephone</th>
+                <td>{{ client.telephone }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ client.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Ninea</th>
+                <td>{{ client.ninea }}</td>
+            </tr>
+            <tr>
+                <th>Registre de Commerce</th>
+                <td>{{ client.registre_commerce }}</td>
+            </tr>
+           
+        </tbody>
+    </table>
+
+    <a href="{{ path('CMlist') }}" class="btn btn-primary">Retour</a>
+
+{% endblock %}

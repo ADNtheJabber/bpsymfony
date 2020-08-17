@@ -2,67 +2,73 @@
 
 namespace App\Entity;
 
-use App\Repository\ClientMoralRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ClientMoralRepository::class)
+ * ClientMoral
+ *
+ * @ORM\Table(name="client_moral")
+ * @ORM\Entity
  */
 class ClientMoral
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="adresse", type="string", length=255, nullable=false)
      */
     private $adresse;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="tel", type="integer", nullable=false)
      */
     private $tel;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=255, nullable=false)
      */
     private $email;
 
     /**
-     * @ORM\Column(type="integer")
+     * @var int
+     *
+     * @ORM\Column(name="ninea", type="integer", nullable=false)
      */
     private $ninea;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="registre_commerce", type="string", length=255, nullable=false)
      */
     private $registreCommerce;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     *
+     * @ORM\Column(name="raison_sociale", type="string", length=255, nullable=false)
      */
     private $raisonSociale;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Compte::class, mappedBy="idClientEntreprise")
-     */
-    private $idCompte;
-
-    public function __construct()
-    {
-        $this->idCompte = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -153,34 +159,5 @@ class ClientMoral
         return $this;
     }
 
-    /**
-     * @return Collection|Compte[]
-     */
-    public function getIdCompte(): Collection
-    {
-        return $this->idCompte;
-    }
 
-    public function addIdCompte(Compte $idCompte): self
-    {
-        if (!$this->idCompte->contains($idCompte)) {
-            $this->idCompte[] = $idCompte;
-            $idCompte->setIdClientEntreprise($this);
-        }
-
-        return $this;
-    }
-
-    public function removeIdCompte(Compte $idCompte): self
-    {
-        if ($this->idCompte->contains($idCompte)) {
-            $this->idCompte->removeElement($idCompte);
-            // set the owning side to null (unless already changed)
-            if ($idCompte->getIdClientEntreprise() === $this) {
-                $idCompte->setIdClientEntreprise(null);
-            }
-        }
-
-        return $this;
-    }
 }
