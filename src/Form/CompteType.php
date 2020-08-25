@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Compte;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -18,18 +19,64 @@ class CompteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('numeroCompte', TextType::class)
-            ->add('typeCompte', TextType::class)
-            ->add('fraisOuverture', NumberType::class)
-            ->add('remuneration', NumberType::class)
-            ->add('agios', NumberType::class)
-            ->add('dateOuverture', DateType::class)
-            ->add('dateDeblocage', DateType::class)
-            ->add('solde', NumberType::class)
-            ->add('idClientEntreprise', IntegerType::class)
-            ->add('idClientPhysique', IntegerType::class)
-            ->add('submit', SubmitType::class,['attr'=>['label' =>'Valider']])
-            ->add('reset', ResetType::class,['attr'=>['label' =>'Annuler']])
+            ->add('typeCompte', ChoiceType::class, [
+                'choices'=> [
+                    'Type de Compte*'=>'',
+                    'Courant'=>'1',
+                    'Epargne'=>'2',
+                    'Bloqué'=>'3'
+                ],
+                'required'=>'required',
+                'choice_attr'=>[
+                    'typeCompte*'=>[
+                        'disabled'=>'']
+                ]
+            ])
+            ->add('numeroCompte', TextType::class, [
+                'attr'=> [
+                    'placeholder'=>'Saisir le numero du compte'
+                ]
+            ])
+            ->add('fraisOuverture', NumberType::class, [
+                'attr'=> [
+                    'placeholder'=>'frais d\'Ouverture'
+                ]
+            ])
+            ->add('remuneration', NumberType::class, [
+                'attr'=> [
+                    'placeholder'=>'Remuneration'
+                ]
+            ])
+            ->add('agios', NumberType::class, [
+                'attr'=> [
+                    'placeholder'=>'agios'
+                ]
+            ])
+            ->add('dateOuverture', DateType::class, [
+                'attr'=> [
+                    'id'=>'dateOuverture'
+                ]
+            ])
+            ->add('dateDeblocage', DateType::class, [
+                'attr'=> [
+                    'id'=>'dateDeblocage'
+                ]
+            ])
+            ->add('solde', NumberType::class, [
+                'attr'=> [
+                    'placeholder'=>'Depot Initial'
+                ]
+            ])
+            ->add('Valider', SubmitType::class, [
+                'attr'=> [
+                    'class' =>'btn btn-success btn-block'
+                ]
+            ])
+            ->add('Annuler', ResetType::class, [
+                'attr'=> [
+                    'class' =>'btn btn-danger btn-block'
+                ]
+            ])
 
         ;
     }

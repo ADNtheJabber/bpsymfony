@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
 class ClientPhysiqueController extends AbstractController
@@ -51,12 +52,11 @@ class ClientPhysiqueController extends AbstractController
 
     /**
      * @Route("/clientPhysique/show/{id}", name="clientP_show", methods={"GET"})
+     * @ParamConverter("client", class="App\Entity\ClientPhysique")
      */
-    public function show(ClientPhysique $clientPhysique): Response
+    public function show($client): Response
     {
-        return $this->render('client_physique/show.html.twig', [
-            'client' => $clientPhysique,
-        ]);
+        return $this->render('client_physique/show.html.twig', compact('client'));
     }
 
     /**
@@ -71,5 +71,34 @@ class ClientPhysiqueController extends AbstractController
         }
 
         return $this->redirectToRoute('clientPhysique');
+    }
+
+    /**
+    *
+    * @Route("/searchP", name="searchP"), methods={"GET"}
+    */
+    public function searchAction(Request $request, ClientPhysiqueRepository $clientPhysiqueRepository, EntityManagerInterface $entityManager)
+    {
+        $clients = new ClientPhysique;
+        $requestString = $request->get('q');
+
+        $clients =  $entityManager->$clientPhysiqueRepository->findByCNI($requestString);
+
+        if(!$clients) {
+            $result['clients']['error'] = "Client Physique Introuvable";
+        } else {
+            $result['clients'] = $this->getClient($clients);
+        }
+
+        return new Response(json_encode($result));
+    }
+
+    public function getClient($clients){
+
+        foreach ($clients as $client){
+            $clientsRecuperes[$client->getId()] = $client->getCni();
+        }
+
+        return $clientsRecuperes;
     }
 }

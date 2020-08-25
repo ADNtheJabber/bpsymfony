@@ -15,15 +15,16 @@ let dateOuverture = document.getElementsById('dateOuverture');
 
 let dateDeblocage = document.getElementsById('dateDeblocage');
 
-let inputP = document.getElementsById('searchPhysique');
-let inputM = document.getElementsById('searchEntreprise');
+let inputP = document.getElementsById('idPhysique');
+let inputM = document.getElementsById('idEntreprise');
 
 function afficherInfo(e){
     e.preventDefault();
-   if (typeCompte == 0) {
+   if (typeCompte == '') {
        alert('Donner le type du compte');
    } 
    else if(typeCompte == 1){
+       e.preventDefault;
        
    }
    else if (typeCompte == 2){

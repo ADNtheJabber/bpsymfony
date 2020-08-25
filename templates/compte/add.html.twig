@@ -4,8 +4,171 @@
 
 {% block body %}
 
+        <div class="container">
+                <div class="row centered-form">
+			<div class="col-xs-8 col-sm-8 col-md-8" style="width:100%;">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title" style="text-transform: uppercase;"><i class="fa fa-user-circle"></i>  Formulaire de creation de Compte</h3>
+				        </div>
+                                
+                                        <div class="panel-body">
+                        
+                                {{ form_start(form)}}
+                                        
+                                        <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                        <div class="form-group">
+                                                        {{ form_row(form.typeCompte) }}
+                                                        </div>
+                                                </div>
+                                        </div>
 
-<div class="example-wrapper">
-        {{ form(form) }}
-</div>
+                                        <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                        <div class="form-group">
+                                                        {{ form_row(form.numeroCompte) }}
+                                                        </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                        <div class="form-group">
+                                                        {{ form_row(form.fraisOuverture) }}
+                                                        </div>
+                                                </div>
+                                        </div>
+
+                                        <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                        <div class="form-group">
+                                                        {{ form_row(form.remuneration) }}
+                                                        </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                        <div class="form-group">
+                                                        {{ form_row(form.agios) }}
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                        <div class="form-group">
+                                                        {{ form_row(form.dateOuverture) }}
+                                                        </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                        <div class="form-group">
+                                                        {{ form_row(form.dateDeblocage) }}
+                                                        </div>
+                                                </div>
+                                        </div>
+
+                                        <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                        <div class="form-group">
+                                                        {{ form_row(form.solde) }}
+                                                        </div>
+                                                </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                                        <h4 style="font-weight: bold; margin:10px 14px;">Client Associé:</h4>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-xs-2 col-sm-2 col-md-2">
+                                                        <div class="form-group">
+                                                        <div class="btn btn-info" id="btnPhysique">Client Physique</div>
+                                                        </div>
+                                                </div>
+
+                                                <div class="col-xs-2 col-sm-2 col-md-2">
+                                                        <div class="form-group">
+                                                        <div class="btn btn-info" id="btnMoral">Client Entreprise</div>
+                                                        </div>
+                                                </div>
+                                        </div>
+
+                                        <div class="sidebar-search">
+                                                <div class="input-group custom-search-form">
+                                                        <input type="text" id="searchP" class="form-control" placeholder="Rechercher par cni...">
+                                                </div>
+                                                <!-- /input-group -->
+                                                        <ul class="nav" id="side-menu">
+                                                                <li>
+                                                                        <a href="#"> Résultats<span class="fa arrow"></span></a>
+                                                                        <ul class="nav nav-second-level" id="entitiesNav"></ul>
+                                                                </li>
+                                                        </ul>
+                                        
+                                        <div class="row">
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                        <div class="form-group">
+                                                        {{ form_row(form.Valider) }}
+                                                        </div>
+                                                </div>
+                                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                                        <div class="form-group">
+                                                        {{ form_row(form.Annuler) }}
+                                                        </div>
+                                                </div>
+                                        </div>
+
+                                {{ form_end(form) }}
+
+                        </div>
+
+                        </div>
+                </div>
+        </div>
+
+        
+{% endblock %}
+
+{% block javascripts %}
+        
+        <!-- jQuery is necessary -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> 
+
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+
+        var searchRequest = null;
+
+        $("#searchP").keyup(function() {
+            var minlength = 2;
+            var that = this;
+            var value = $(this).val();
+            var entitySelector = $("#entitiesNav").html('');
+
+            if (value.length >= minlength ) {
+                if (searchRequest != null)
+                searchRequest = $.ajax({
+                    type: "GET",
+                    url: "{{ path('searchP') }}",
+                    data: {
+                        'q' : value
+                    },
+                    dataType: "text",
+                    success: function(msg){
+                        //we need to check if the value is the same
+                        if (value==$(that).val()) {
+                            var result = JSON.parse(msg);
+                            $.each(result, function(key, arr) {
+                                $.each(arr, function(id, value) {
+                                    if (key == 'clients') {
+                                        if (id != 'error') {
+                                            entitySelector.append('<li><a href="/daten/'+id+'">'+value+'</a></li>');
+                                        } else {
+                                            entitySelector.append('<li class="error">'+value+'</li>');
+                                        }
+                                    }
+                                });
+                            });
+                        }
+                     }
+                });
+            }
+        });
+    });
+</script>
 {% endblock %}

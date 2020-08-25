@@ -4,7 +4,85 @@
 
 {% block body %}
 
-<div class="example-wrapper">
-        {{ form(form) }}
-</div>
+        <div class="container">
+                <div class="row centered-form">
+			<div class="col-xs-8 col-sm-8 col-md-8" style="width:100%;">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title" style="text-transform: uppercase;"><i class="fa fa-user-circle"></i>  Formulaire de creation de Client Entreprise</h3>
+				        </div>
+                                
+                        <div class="panel-body">
+                        
+                                {{ form_start(form)}}
+                                
+                                <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                {{ form_row(form.nom) }}
+                                                </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                {{ form_row(form.raisonSociale) }}
+                                                </div>
+                                        </div>
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-xs-12 col-sm-8 col-md-12">
+                                                <div class="form-group">
+                                                {{ form_row(form.adresse) }}
+                                                </div>
+                                        </div>
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                {{ form_row(form.email) }}
+                                                </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                {{ form_row(form.tel) }}
+                                                </div>
+                                        </div>
+                                </div>
+                                
+                                <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                {{ form_row(form.ninea) }}
+                                                </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                {{ form_row(form.registreCommerce) }}
+                                                </div>
+                                        </div>
+                                </div>
+
+                                <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                {{ form_row(form.Valider) }}
+                                                </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                {{ form_row(form.Annuler) }}
+                                                </div>
+                                        </div>
+                                </div>
+
+                                {{ form_end(form) }}
+
+                        </div>
+
+                        </div>
+                </div>
+        </div>
+
+        
 {% endblock %}

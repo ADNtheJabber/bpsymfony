@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 
 class ClientMoralController extends AbstractController
@@ -52,22 +52,20 @@ class ClientMoralController extends AbstractController
 
     /**
      * @Route("/clientMoral/show/{id}", name="clientM_show", methods={"GET"})
+     * @ParamConverter("client", class="App\Entity\ClientMoral")
      */
-    public function show(ClientMoral $clientMoral): Response
+    public function show($client): Response
     {
-        return $this->render('client_moral/show.html.twig', [
-            'client' => $clientMoral,
-        ]);
+        return $this->render('client_moral/show.html.twig', compact('client'));
     }
     
    
     /**
      * @Route("/clientMoral/del/{id}", name="clientM_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, ClientMoral $clientMoral): Response
+    public function delete(Request $request, ClientMoral $clientMoral, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$clientMoral->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($clientMoral);
             $entityManager->flush();
         }

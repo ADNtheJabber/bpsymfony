@@ -60,7 +60,7 @@ class ClientPhysiqueType extends AbstractType
                     'id'=>'profession'
                 ]
             ])
-            ->add('infos', TextareaType::class, [
+            ->add('infos_employeur', TextareaType::class, [
                 'attr'=> [
                     'placeholder'=>'Saisir les informations de l\'employeur ici ',
                     'id'=>'infos'

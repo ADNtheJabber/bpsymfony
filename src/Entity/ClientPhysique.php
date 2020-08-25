@@ -59,30 +59,30 @@ class ClientPhysique
     /**
      * @var int
      *
-     * @ORM\Column(name="identifiant", type="integer", nullable=false)
+     * @ORM\Column(name="cni", type="integer", nullable=false)
      */
-    private $identifiant;
+    private $cni;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="salaire", type="decimal", precision=20, scale=2, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="salaire", type="decimal", precision=20, scale=2, nullable=true)
      */
-    private $salaire = 'NULL';
+    private $salaire;
 
     /**
      * @var string|null
      *
-     * @ORM\Column(name="profession", type="string", length=255, nullable=true, options={"default"="NULL"})
+     * @ORM\Column(name="profession", type="string", length=255, nullable=true)
      */
-    private $profession = 'NULL';
+    private $profession;
 
     /**
-     * @var string|null
-     *
-     * @ORM\Column(name="infos_employeur", type="string", length=255, nullable=true, options={"default"="NULL"})
-     */
-    private $infosEmployeur = 'NULL';
+    * @var string|null
+    *
+    * @ORM\Column(name="infos_employeur", type="string", length=255, nullable=true)
+    */
+    private $infos;
 
     public function getId(): ?int
     {
@@ -149,14 +149,14 @@ class ClientPhysique
         return $this;
     }
 
-    public function getIdentifiant(): ?int
+    public function getCni(): ?int
     {
-        return $this->identifiant;
+        return $this->cni;
     }
 
-    public function setIdentifiant(int $identifiant): self
+    public function setCni(int $cni): self
     {
-        $this->identifiant = $identifiant;
+        $this->cni = $cni;
 
         return $this;
     }
@@ -185,14 +185,14 @@ class ClientPhysique
         return $this;
     }
 
-    public function getInfosEmployeur(): ?string
+    public function getInfos(): ?string
     {
-        return $this->infosEmployeur;
+        return $this->infos;
     }
 
-    public function setInfosEmployeur(?string $infosEmployeur): self
+    public function setInfos(?string $infos): self
     {
-        $this->infosEmployeur = $infosEmployeur;
+        $this->infos = $infos;
 
         return $this;
     }

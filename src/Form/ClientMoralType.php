@@ -16,15 +16,51 @@ class ClientMoralType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class)
-            ->add('adresse', TextType::class)
-            ->add('tel', TextType::class)
-            ->add('email', TextType::class)
-            ->add('ninea', IntegerType::class)
-            ->add('registreCommerce', TextType::class)
-            ->add('raisonSociale', TextType::class)
-            ->add('submit', SubmitType::class,['attr'=>['label' =>'Valider']])
-            ->add('reset', ResetType::class,['attr'=>['label' =>'Annuler']])
+            ->add('nom', TextType::class, [
+                'attr'=> [
+                    'placeholder'=>'Saisir le nom ici '
+                ]
+            ])
+            ->add('adresse', TextType::class, [
+                'attr'=> [
+                    'placeholder'=>'Saisir l\'adresse ici '
+                ]
+            ])
+            ->add('tel', TextType::class, [
+                'attr'=> [
+                    'placeholder'=>'Saisir le telephone ici '
+                ]
+            ])
+            ->add('email', TextType::class, [
+                'attr'=> [
+                    'placeholder'=>'Saisir l\'email ici '
+                ]
+            ])
+            ->add('ninea', IntegerType::class, [
+                'attr'=> [
+                    'placeholder'=>'Saisir le ninea ici '
+                ]
+            ])
+            ->add('registreCommerce', TextType::class, [
+                'attr'=> [
+                    'placeholder'=>'Saisir le numero de Registre ici '
+                ]
+            ])
+            ->add('raisonSociale', TextType::class, [
+                'attr'=> [
+                    'placeholder'=>'SA, SARL, SAS ... '
+                ]
+            ])
+            ->add('Valider', SubmitType::class,[
+                'attr'=> [
+                    'class'=>'btn btn-success btn-block'
+                ]
+            ])
+            ->add('Annuler', ResetType::class, [
+                'attr'=> [
+                    'class' =>'btn btn-danger btn-block'
+                ]
+            ])
         ;
     }
 

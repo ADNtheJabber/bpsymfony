@@ -7,23 +7,6 @@ var allforms = document.getElementById('allForms');
 
 var boutonsClient = document.getElementById('boutons_formClient');
 
-// /* -------CLIENT EXISTANT------- */
-
-// var choix_client_existant = document.getElementById('Existant');
-// choix_client_existant.addEventListener('click',afficher_client_existant);
-
-// var recherche_par_id = document.getElementById('searchById');
-// recherche_par_id.addEventListener('click',afficher_searchboxID);
-
-// var inputForId = document.getElementById('byId');
-
-// var recherche_par_compte = document.getElementById('searchByAccount');
-// recherche_par_compte.addEventListener('click',afficher_searchboxAccount);
-
-// var inputForAccount = document.getElementById('byAccount');
-
-
-/* -------CLIENT PHYSIQUE------- */
 
 var choix_client_physique = document.getElementById('choixPhysique');
 choix_client_physique.addEventListener('click',afficher_client_physique);

@@ -61,4 +61,5 @@ class CompteController extends AbstractController
 
             return $this->redirectToRoute('Clist');
         }
+        
 }

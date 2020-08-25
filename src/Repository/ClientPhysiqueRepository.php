@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\ClientPhysique;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Query\Expr;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,5 +21,19 @@ class ClientPhysiqueRepository extends ServiceEntityRepository
         parent::__construct($registry, ClientPhysique::class);
     }
 
+   
+    /**
+    * @return ClientPhysique[]
+    */
+    public function findByCNI($str, EntityManagerInterface $entityManager){
+        return $this->$entityManager()
+                    ->createQuery(
+                        'SELECT c
+                        FROM client_physique c
+                        WHERE c.cni LIKE :str'
+            )
+            ->setParameter('str', '%'.$str.'%')
+            ->getResult();
+    }
 
 }
